@@ -1,8 +1,7 @@
 package ma.ensak.metier;
 
 import ma.ensak.entities.Produit;
-
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 import java.util.List;
 
 @Local

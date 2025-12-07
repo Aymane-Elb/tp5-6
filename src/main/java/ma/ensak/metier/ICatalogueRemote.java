@@ -1,8 +1,7 @@
 package ma.ensak.metier;
 
 import ma.ensak.entities.Produit;
-
-import javax.ejb.Remote;
+import jakarta.ejb.Remote;
 import java.util.List;
 
 @Remote

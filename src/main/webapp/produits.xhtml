@@ -2,48 +2,145 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
     <title>Produits</title>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .form-grid td {
+            padding: 6px 8px;
+        }
+
+        .btn-primary {
+            padding: 8px 16px;
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .btn-primary:hover {
+            background: #12579a;
+        }
+
+        .link-back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #1976d2;
+            text-decoration: none;
+        }
+
+        .link-back:hover {
+            text-decoration: underline;
+        }
+
+        .messages {
+            margin-bottom: 15px;
+            color: #b71c1c;
+        }
+    </style>
 </h:head>
+
 <h:body>
+    <div class="container">
 
-    <h2>Liste des produits</h2>
+        <h1>Catalogue de produits</h1>
 
-    <h:dataTable value="#{produitBean.produits}" var="p" border="1">
-        <h:column>
-            <f:facet name="header">ID</f:facet>
-            #{p.idProduit}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Nom</f:facet>
-            #{p.nomProduit}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Prix</f:facet>
-            #{p.prix}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Quantité</f:facet>
-            #{p.quantite}
-        </h:column>
-    </h:dataTable>
+        <h:messages globalOnly="true" styleClass="messages"/>
 
-    <h3>Ajouter un produit</h3>
+        <h2>Liste des produits</h2>
 
-    <h:form>
-        <h:panelGrid columns="2">
-            <h:outputLabel value="Nom :" for="nom"/>
-            <h:inputText id="nom" value="#{produitBean.nom}"/>
+        <h:dataTable value="#{produitBean.produits}" var="p">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{p.idProduit}
+            </h:column>
 
-            <h:outputLabel value="Prix :" for="prix"/>
-            <h:inputText id="prix" value="#{produitBean.prix}"/>
+            <h:column>
+                <f:facet name="header">Nom</f:facet>
+                #{p.nomProduit}
+            </h:column>
 
-            <h:outputLabel value="Quantité :" for="quantite"/>
-            <h:inputText id="quantite" value="#{produitBean.quantite}"/>
+            <h:column>
+                <f:facet name="header">Prix</f:facet>
+                <h:outputText value="#{p.prix}">
+                    <f:convertNumber type="number" minFractionDigits="2" />
+                </h:outputText>
+            </h:column>
 
-            <h:commandButton value="Ajouter" action="#{produitBean.ajouter}"/>
-        </h:panelGrid>
-    </h:form>
+            <h:column>
+                <f:facet name="header">Quantité</f:facet>
+                #{p.quantite}
+            </h:column>
+        </h:dataTable>
 
+        <h3>Ajouter un produit</h3>
+
+        <h:form>
+            <h:panelGrid columns="2" styleClass="form-grid">
+
+                <h:outputLabel value="Nom :" for="nom"/>
+                <h:inputText id="nom" value="#{produitBean.nom}" required="true"
+                             requiredMessage="Le nom est obligatoire."/>
+
+                <h:outputLabel value="Prix :" for="prix"/>
+                <h:inputText id="prix" value="#{produitBean.prix}" required="true"
+                             requiredMessage="Le prix est obligatoire.">
+                    <f:convertNumber type="number" />
+                </h:inputText>
+
+                <h:outputLabel value="Quantité :" for="quantite"/>
+                <h:inputText id="quantite" value="#{produitBean.quantite}" required="true"
+                             requiredMessage="La quantité est obligatoire.">
+                    <f:convertNumber integerOnly="true" />
+                </h:inputText>
+
+                <h:outputLabel />
+                <h:commandButton value="Ajouter" action="#{produitBean.ajouter}"
+                                 styleClass="btn-primary"/>
+            </h:panelGrid>
+        </h:form>
+
+        <br/>
+
+        <h:link outcome="index" value="Retour à l'accueil" styleClass="link-back"/>
+
+    </div>
 </h:body>
 </html>

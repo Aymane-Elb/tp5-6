@@ -1,10 +1,10 @@
 package ma.ensak.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "PRODUITS")
+@Table(name = "PRODUITS", catalog = "db_catalogue")
 public class Produit implements Serializable {
 
     @Id

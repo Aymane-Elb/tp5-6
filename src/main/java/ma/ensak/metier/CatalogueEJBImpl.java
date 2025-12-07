@@ -2,9 +2,9 @@ package ma.ensak.metier;
 
 import ma.ensak.entities.Produit;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
@@ -20,8 +20,11 @@ public class CatalogueEJBImpl implements ICatalogueLocal, ICatalogueRemote {
 
     @Override
     public List<Produit> getAllProduits() {
-        return em.createQuery("SELECT p FROM Produit p", Produit.class)
-                .getResultList();
+        // SQL natif avec le schéma/bd explicite
+        return em.createNativeQuery(
+                "SELECT p.* FROM db_catalogue.PRODUITS p",
+                Produit.class
+        ).getResultList();
     }
 
     @Override

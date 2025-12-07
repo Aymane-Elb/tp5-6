@@ -3,13 +3,13 @@ package ma.ensak.web;
 import ma.ensak.entities.Produit;
 import ma.ensak.metier.ICatalogueRemote;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 import java.util.List;
 
-@Named
+@Named("produitBean")
 @RequestScoped
 public class ProduitBean {
 
@@ -22,6 +22,9 @@ public class ProduitBean {
 
     private List<Produit> produits;
 
+    public ProduitBean() {
+    }
+
     @PostConstruct
     public void init() {
         produits = metier.getAllProduits();
@@ -31,10 +34,8 @@ public class ProduitBean {
         Produit p = new Produit(nom, prix, quantite);
         metier.addProduit(p);
         produits = metier.getAllProduits();
-        return null; // rester sur la même page
+        return null;
     }
-
-    // getters / setters
 
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
